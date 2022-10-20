@@ -18,8 +18,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('email')->unique();
+            $table->string('image')->nullable();
+            $table->integer('division_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->text('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('isVerified')->default();
+
             $table->rememberToken();
             $table->timestamps();
         });
