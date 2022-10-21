@@ -15,7 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            AdminsTableSeeder::class,
+            SellerTableSeeder::class,
+        ]);
+
     \App\Models\User::factory(10)->create();
+    \App\Models\Seller::factory(50)->create();
+    \App\Models\Slider::factory(20)->create();
     \App\Models\Brand::factory(20)->create();
     \App\Models\Category::factory(30)->create();
     \App\Models\SubCategory::factory(100)->create();
@@ -27,9 +34,6 @@ class DatabaseSeeder extends Seeder
             'password'=> Hash::make('password')
         ]);
 
-        $this->call([
-            AdminsTableSeeder::class,
-            SellerTableSeeder::class,
-        ]);
+        
     }
 }
