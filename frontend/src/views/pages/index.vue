@@ -1,3 +1,18 @@
+<script setup>
+import { ref } from "vue";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+
+// Import Swiper styles
+import "swiper/css";
+
+import "swiper/css/pagination";
+
+// import required modules
+import { Pagination, Autoplay } from "swiper";
+
+const modules = ref([Pagination, Autoplay]);
+</script>
 <template>
   <div>
     <section class="banner-part">
@@ -5,9 +20,33 @@
         <div class="row">
           <div class="col-lg-12 order-0 order-lg-1 order-xl-1">
             <div class="home-grid-slider slider-arrow slider-dots">
-              <a href="#"><img src="../../assets/images/banner/01.jfif" alt="" /></a
-              ><a href="#"><img src="../../assets/images/banner/02.jfif" alt="" /></a>
-              <a href="#"><img src="../../assets/images/banner/03.jfif" alt="" /></a>
+              <swiper
+                :spaceBetween="30"
+                :pagination="{
+                  clickable: true,
+                }"
+                :loop="true"
+                :autoplay="{
+                  delay: 2000,
+                }"
+                :modules="modules"
+                class="mySwiper"
+              >
+                <swiper-slide
+                  ><a href="#"
+                    ><img
+                      src="../../assets/images/banner/01.jfif"
+                      alt="" /></a></swiper-slide
+                ><swiper-slide
+                  ><a href="#"
+                    ><img
+                      src="../../assets/images/banner/02.jfif"
+                      alt="" /></a></swiper-slide
+                ><swiper-slide
+                  ><a href="#"
+                    ><img src="../../assets/images/banner/03.jfif" alt="" /></a
+                ></swiper-slide>
+              </swiper>
             </div>
           </div>
         </div>
@@ -1038,7 +1077,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/01.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/01.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
@@ -1064,7 +1105,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/05.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/05.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
@@ -1090,7 +1133,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/07.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/07.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
@@ -1116,7 +1161,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/01.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/01.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
@@ -1142,7 +1189,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/06.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/06.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
@@ -1168,7 +1217,9 @@
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i></button
                     ><a class="product-image" href="product-video.html"
-                      ><img src="../../assets/images/product/04.jpg" alt="product"
+                      ><img
+                        src="../../assets/images/product/04.jpg"
+                        alt="product"
                     /></a>
                   </div>
                   <div class="product-content">
