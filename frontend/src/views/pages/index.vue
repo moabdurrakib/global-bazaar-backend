@@ -7,11 +7,13 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 // import required modules
-import { Pagination, Autoplay } from "swiper";
+import { Pagination, Autoplay , Navigation} from "swiper";
 
 const modules = ref([Pagination, Autoplay]);
+const newSlide = ref([Navigation, Autoplay])
 </script>
 <template>
   <div>
@@ -1068,7 +1070,19 @@ const modules = ref([Pagination, Autoplay]);
         <div class="row">
           <div class="col">
             <ul class="new-slider slider-arrow">
-              <li>
+              <swiper
+                :slidesPerView="5"
+                :slidesPerGroup="5"
+                :loop="true"
+                :autoplay="{
+                  delay: 2000,
+                }"
+                :loopFillGroupWithBlank="true"
+                :navigation="true"
+                :modules="newSlide"
+                class="mySwiper"
+              >
+                <swiper-slide><li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1094,9 +1108,8 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
-
-              <li>
+              </li></swiper-slide
+                ><swiper-slide>  <li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1122,9 +1135,8 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
-
-              <li>
+              </li></swiper-slide
+                ><swiper-slide><li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1150,9 +1162,8 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
-
-              <li>
+              </li></swiper-slide
+                ><swiper-slide><li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1178,9 +1189,8 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
-
-              <li>
+              </li></swiper-slide
+                ><swiper-slide><li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1206,9 +1216,8 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
-
-              <li>
+              </li></swiper-slide
+                ><swiper-slide><li>
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
@@ -1234,7 +1243,10 @@ const modules = ref([Pagination, Autoplay]);
                     </button>
                   </div>
                 </div>
-              </li>
+              </li></swiper-slide
+                >
+              </swiper>
+        
             </ul>
           </div>
         </div>
