@@ -15,6 +15,7 @@ import { Pagination, Autoplay , Navigation} from "swiper";
 const modules = ref([Pagination, Autoplay]);
 const newSlide = ref([Navigation, Autoplay])
 </script>
+
 <template>
   <div>
     <section class="banner-part">
