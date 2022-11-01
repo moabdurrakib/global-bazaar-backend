@@ -1,11 +1,38 @@
+<script setup>
+const menuClose = () => {
+  $("body").css("overflow", "inherit"),
+    $(".nav-sidebar").removeClass("active"),
+    $(".backdrop").fadeOut();
+};
+
+//  Cart show
+
+const cartShow = () => {
+  $("body").css("overflow", "hidden"), $(".cart-sidebar").addClass("active");
+};
+
+// Category show
+const cateShow = () => {
+  $("body").css("overflow", "hidden"),
+    $(".category-sidebar").addClass("active");
+};
+
+const categoryClose = () => {
+  $("body").css("overflow", "inherit"),
+    $(".category-sidebar").removeClass("active"),
+    $(".backdrop").fadeOut();
+};
+</script>
 <template>
-    <div>
-        <aside class="category-sidebar">
+  <div>
+    <aside class="category-sidebar">
       <div class="category-header">
         <h4 class="category-title">
           <i class="fas fa-align-left"></i><span>categories</span>
         </h4>
-        <button class="category-close"><i class="icofont-close"></i></button>
+        <button class="category-close" @click="categoryClose">
+          <i class="icofont-close"></i>
+        </button>
       </div>
       <ul class="category-list">
         <li class="category-item">
@@ -130,21 +157,21 @@
         </li>
       </ul>
       <div class="category-footer">
-        <p>All Rights Reserved by <a href="#">W3Coders</a></p>
+        <p>All Rights Reserved by <a href="#">Mohammad Abdur Rakib</a></p>
       </div>
     </aside>
-    
+
     <aside class="nav-sidebar">
       <div class="nav-header">
-        <a href="#"><img src="./assets/images/logo.png" alt="logo" /></a
-        ><button class="nav-close"><i class="icofont-close"></i></button>
+        <a href="#"><img src="@/assets/images/logo.png" alt="logo" /></a
+        ><button class="nav-close" @click="menuClose">
+          <i class="icofont-close"></i>
+        </button>
       </div>
       <div class="nav-content">
         <ul class="nav-list">
           <li>
-            <a href="#" class="nav-link"
-              ><i class="icofont-home"></i>Home</a
-            >
+            <a href="#" class="nav-link"><i class="icofont-home"></i>Home</a>
           </li>
 
           <li>
@@ -162,22 +189,36 @@
         <div class="nav-info-group">
           <div class="nav-info">
             <i class="icofont-ui-touch-phone"></i>
-            <p><small>call us</small><span>(+880) 183 8288 389</span></p>
+            <p><small>call us</small><span>(+880) 1557768838</span></p>
           </div>
           <div class="nav-info">
             <i class="icofont-ui-email"></i>
-            <p><small>email us</small><span>support@greeny.com</span></p>
+            <p><small>email us</small><span>moabdurakib@gmail.com</span></p>
           </div>
         </div>
       </div>
     </aside>
     <!-- mobile footer menu  -->
     <div class="mobile-menu">
-      <a href="/" class="active router-link-exact-active" title="Home Page" aria-current="page"><i class="fas fa-home"></i><span>Home</span></a>
-      <button class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>category</span></button>
-      <button class="cart-btn" title="Cartlist"><i class="fas fa-shopping-basket"></i><span>Cart</span><sup>2</sup>
+      <a
+        href="/"
+        class="active router-link-exact-active"
+        title="Home Page"
+        aria-current="page"
+        ><i class="fas fa-home"></i><span>Home</span></a
+      >
+      <button class="cate-btn" @click="cateShow" title="Category List">
+        <i class="fas fa-list"></i><span>category</span>
       </button>
-      <a href="/my-wishist" class="" title="Wishlist"><i class="fas fa-bell"></i><span>Notifications</span><sup>0</sup></a>
-      <a href="/user/profile" class="" title="My Account"><i class="fas fa-user"></i><span>My Account</span></a></div>
+      <button class="cart-btn" @click="cartShow" title="Cartlist">
+        <i class="fas fa-shopping-basket"></i><span>Cart</span><sup>2</sup>
+      </button>
+      <a href="/my-wishist" class="" title="Wishlist"
+        ><i class="fas fa-bell"></i><span>Notifications</span><sup>0</sup></a
+      >
+      <a href="/user/profile" class="" title="My Account"
+        ><i class="fas fa-user"></i><span>My Account</span></a
+      >
     </div>
+  </div>
 </template>

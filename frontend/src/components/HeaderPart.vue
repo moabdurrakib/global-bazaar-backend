@@ -1,3 +1,25 @@
+<script setup>
+// search Icon
+const search = () => {
+  $(".header-form").toggleClass("active"),
+    $(header - src)
+      .children(".fa-search")
+      .toggleClass("fa-times");
+};
+
+// Menubar
+
+const menuSideBar = () => {
+  $("body").css("overflow", "hidden"), $(".nav-sidebar").addClass("active");
+};
+
+// Header Cart
+const headerCart= ()=> {
+  $("body").css("overflow", "hidden"),
+      $(".cart-sidebar").addClass("active")      
+}
+
+</script>
 <template>
   <div>
     <div class="header-top">
@@ -24,11 +46,13 @@
       <div class="container">
         <div class="header-content">
           <div class="header-media-group">
-            <button class="header-user">
+            <button class="header-user" @click="menuSideBar">
               <img src="@/assets/images/menu.png" alt="user" /></button
             ><a href="index.html"
               ><img src="@/assets/images/logo.png" alt="logo" /></a
-            ><button class="header-src"><i class="fas fa-search"></i></button>
+            ><button class="header-src" @click="search">
+              <i class="fas fa-search"></i>
+            </button>
           </div>
           <a href="index.html" class="header-logo"
             ><img src="@/assets/images/logo.png" alt="logo"
@@ -57,7 +81,7 @@
 
             <a href="wishlist.html" class="header-widget" title="Wishlist"
               ><i class="fas fa-heart"></i><sup>0</sup></a
-            ><button class="header-widget header-cart" title="Cartlist">
+            ><button class="header-widget header-cart" @click="headerCart"  title="Cartlist">
               <i class="fas fa-shopping-basket"></i><sup>9+</sup
               ><span>total price<small>$345.00</small></span>
             </button>

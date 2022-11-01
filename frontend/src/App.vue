@@ -9,7 +9,7 @@
     <MobileMenu /> 
 
   <!-- Content part -->
-  <router-view></router-view>
+  <router-view />
   <Index />
 
   <NewsLetter /> 
