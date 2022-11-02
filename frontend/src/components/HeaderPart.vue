@@ -14,11 +14,9 @@ const menuSideBar = () => {
 };
 
 // Header Cart
-const headerCart= ()=> {
-  $("body").css("overflow", "hidden"),
-      $(".cart-sidebar").addClass("active")      
-}
-
+const headerCart = () => {
+  $("body").css("overflow", "hidden"), $(".cart-sidebar").addClass("active");
+};
 </script>
 <template>
   <div>
@@ -63,7 +61,7 @@ const headerCart= ()=> {
               <i class="fas fa-search"></i>
             </button>
           </form>
-          <div class="header-widget-group">
+          <div class="header-widget-group hover-nav">
             <li class="nav-item dropdown">
               <a
                 class="nav-link header-widget"
@@ -72,16 +70,30 @@ const headerCart= ()=> {
                 ><i class="fas fa-user"></i
               ></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a href="login.html" class="dropdown-item"> Login</a></li>
                 <li>
-                  <a href="register.html" class="dropdown-item"> Register</a>
+                  <router-link
+                    :to="{ name: 'user.login' }"
+                    class="dropdown-item"
+                    >Login</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.register' }"
+                    class="dropdown-item"
+                    >Register</router-link
+                  >
                 </li>
               </ul>
             </li>
 
             <a href="wishlist.html" class="header-widget" title="Wishlist"
               ><i class="fas fa-heart"></i><sup>0</sup></a
-            ><button class="header-widget header-cart" @click="headerCart"  title="Cartlist">
+            ><button
+              class="header-widget header-cart"
+              @click="headerCart"
+              title="Cartlist"
+            >
               <i class="fas fa-shopping-basket"></i><sup>9+</sup
               ><span>total price<small>$345.00</small></span>
             </button>
@@ -91,3 +103,15 @@ const headerCart= ()=> {
     </header>
   </div>
 </template>
+<style>
+.hover-nav .nav-item .dropdown-menu {
+  display: none;
+  margin-top: 0;
+}
+
+/* .hover-nav .nav-item:hover .nav-link {
+} */
+.hover-nav .nav-item:hover .dropdown-menu {
+  display: block;
+}
+</style>
