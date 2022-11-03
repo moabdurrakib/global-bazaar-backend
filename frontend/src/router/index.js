@@ -1,33 +1,55 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Index from "../views/pages/Index.vue"
-import NotFound from "../views/pages/NotFound.vue"
-import {UserLogin,UserRegister} from "@/views/auth"
+import { NotFound, Index, SellerPages,Shops,SellerStore } from "@/views/pages";
+import { UserLogin, UserRegister} from "@/views/auth";
 
 const routes = [
     {
         path: "/",
         commponent: Index,
         name: 'index.page',
-        meta: {title:"home"}
-    },
-    
-    { path: '/:pathMatch(.*)*',
-     name: 'NotFound', 
-     component: NotFound ,
-     meta: {title:"Not Found"}
+        meta: { title: "home" }
     },
 
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound,
+        meta: { title: "Not Found" }
+    },
+
+    {
+        path: '/shops',
+        name: 'shop.page',
+        commponent: Shops,
+        meta: { title: "shop" },
+    },
+
+    // Seller
+    {
+        path: '/seller-list',
+        name: "seller.page",
+        commponent: SellerPages,
+        meta: { title: "Seller list" },
+    },
+    {
+        path: '/seller-store',
+        name: "seller.store",
+        commponent: SellerStore,
+        meta: { title: "Seller Store" },
+    },
     // auth
-    { path: '/auth/login',
-    name: 'user.login', 
-    component: UserLogin ,
-    meta: {title:"User Login"}
-   },
-    { path: '/auth/register',
-    name: 'user.register', 
-    component: UserRegister ,
-    meta: {title:"User Register"}
-   },
+    {
+        path: '/auth/login',
+        name: 'user.login',
+        component: UserLogin,
+        meta: { title: "User Login" }
+    },
+    {
+        path: '/auth/register',
+        name: 'user.register',
+        component: UserRegister,
+        meta: { title: "User Register" },
+    },
 
 ]
 
@@ -39,12 +61,11 @@ const router = createRouter({
     routes,
 })
 
-const DEFAULT_TITLE = '404'
 
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || DEFAULT_TITLE
-     next()
-  })
+    document.title = to.meta.title;
+    next();
+})
 
+export default router
 
-export default router;
