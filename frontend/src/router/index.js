@@ -7,7 +7,7 @@ const routes = [
     {
         path: "/",
         commponent: Index,
-        name: Index
+        name: 'index.page'
     },
     
     { path: '/:pathMatch(.*)*',

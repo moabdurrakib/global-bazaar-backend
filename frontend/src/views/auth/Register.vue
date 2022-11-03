@@ -7,7 +7,7 @@
               <div class="user-form-card">
                 <div class="user-form-title">
                   <h2>Customer Register</h2>
-                  <p>Use your credentials to access</p>
+                  <p>Create Your New Account </p>
                 </div>
                 <div class="user-form-group" id="axiosForm">
                   <form class="user-form">
@@ -39,14 +39,14 @@
                       >
                     </div>
                     <div class="form-button">
-                      <button type="submit">login</button>
-                      <p>
+                      <button type="submit">Register</button>
+                      <!-- <p>
                         Forgot your password?<a
                           href="reset-password.html"
                           class=""
                           >reset here</a
                         >
-                      </p>
+                      </p> -->
                     </div>
                   </form>
                 </div>

@@ -46,16 +46,13 @@ const headerCart = () => {
           <div class="header-media-group">
             <button class="header-user" @click="menuSideBar">
               <img src="@/assets/images/menu.png" alt="user" /></button
-            ><a href="index.html"
-              ><img src="@/assets/images/logo.png" alt="logo" /></a
-            ><button class="header-src" @click="search">
+            ><router-link class="header-logo" :to="{name:'index.page'}"><img src="@/assets/images/logo.png" alt="logo"
+          /></router-link><button class="header-src" @click="search">
               <i class="fas fa-search"></i>
             </button>
           </div>
-          <a href="index.html" class="header-logo"
-            ><img src="@/assets/images/logo.png" alt="logo"
-          /></a>
-
+          <router-link class="header-logo" :to="{name:'index.page'}"><img src="@/assets/images/logo.png" alt="logo"
+          /></router-link>
           <form class="header-form">
             <input type="text" placeholder="Search anything..." /><button>
               <i class="fas fa-search"></i>
