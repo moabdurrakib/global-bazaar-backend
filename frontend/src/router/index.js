@@ -1,6 +1,9 @@
 import { createWebHistory , createRouter } from "vue-router";
-import { NotFound, Indexed, SellerPages,Shops,SellerStore } from "@/views/pages";
-import { UserLogin, UserRegister} from "@/views/auth";
+import { NotFound, Indexed,Shops,SingleProduct,Checkout } from "@/views/pages";
+import {SellerPages,SellerStore, SellerApply} from "@/views/pages/seller"
+import { UserLogin, UserRegister} from "@/views/auth";  
+import { MyOrderList, MyProfile, MyWishlist} from "@/views/user";  
+
 
 const routes = [
     {
@@ -23,6 +26,38 @@ const routes = [
         component: Shops,
         meta: { title: "shop" },
     },
+    {
+        path: '/products',
+        name: 'product.details',
+        component: SingleProduct,
+        meta: { title: "product details" },
+    },
+    // user
+
+    {
+        path: '/my-profile',
+        name: 'user.profile',
+        component: MyProfile,
+        meta: { title: "My Profile" },
+    },
+    {
+        path: '/my-wishlist',
+        name: 'user.wishlist',
+        component: MyWishlist,
+        meta: { title: "My Wishlist" },
+    },
+    {
+        path: '/orders',
+        name: 'user.orders',
+        component: MyOrderList,
+        meta: { title: "My Order List" },
+    },
+    {
+        path: '/checkout',
+        name: 'chekcout.page',
+        component: Checkout,
+        meta: { title: "Chekcout page" },
+    },
 
     // Seller
     {
@@ -35,6 +70,12 @@ const routes = [
         path: '/seller-store',
         name: "seller.store",
         component: SellerStore,
+        meta: { title: "Seller Store" },
+    },
+    {
+        path: '/seller-apply',
+        name: "seller.apply",
+        component: SellerApply,
         meta: { title: "Seller Store" },
     },
     // auth

@@ -33,7 +33,9 @@ const headerCart = () => {
           <div class="col-md-5 col-lg-3"></div>
           <div class="col-md-7 col-lg-4">
             <ul class="header-top-list">
-              <li><a href="offer.html">Seller Apply</a></li>
+              <li>
+              <router-link :to="{name:'seller.apply'}">Seller Apply</router-link>
+              </li>
               <li><a href="faq.html">need help</a></li>
               <li><a href="contact.html">contact us</a></li>
             </ul>
@@ -81,6 +83,27 @@ const headerCart = () => {
                     :to="{ name: 'user.register' }"
                     class="dropdown-item"
                     >Register</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.profile' }"
+                    class="dropdown-item"
+                    >My profile</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.orders' }"
+                    class="dropdown-item"
+                    >My Orders</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.wishlist' }"
+                    class="dropdown-item"
+                    >My Wishlist</router-link
                   >
                 </li>
               </ul>
