@@ -35,12 +35,12 @@
                 <li>
                   <i class="icofont-ui-touch-phone"></i>
                   <p>
-                    <span>+8801722260010</span><span>+8801xxxxxxxx</span>
+                    <span>+8801557768838</span><span>+8801xxxxxxxx</span>
                   </p>
                 </li>
                 <li>
                   <i class="icofont-location-pin"></i>
-                  <p>1Hd- 50, 010 Rangpur,Bangladesh</p>
+                  <p>1Hd- 50, 010 Dhaka,Bangladesh</p>
                 </li>
               </ul>
             </div>
@@ -89,8 +89,8 @@
                 &copy; All Copyrights Reserved by
                 <a
                   target="_blank"
-                  href="https://w3coders.net"
-                  >W3 Coders</a
+                  href="https://moabdurrakib.com"
+                  >Mohammad Abdur Rakib</a
                 >
               </p>
               <div class="footer-card">
