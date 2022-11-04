@@ -1,4 +1,4 @@
-export { default as Index } from "./Index.vue"
+export { default as Indexed } from "./Indexed.vue"
 export { default as Shops } from "./Shop.vue"
 export { default as SellerPages } from "./seller/SellerPage.vue"
 export { default as SellerStore } from "./seller/SellerStore.vue"

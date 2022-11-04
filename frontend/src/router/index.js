@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import { NotFound, Index, SellerPages,Shops,SellerStore } from "@/views/pages";
+import { createWebHistory , createRouter } from "vue-router";
+import { NotFound, Indexed, SellerPages,Shops,SellerStore } from "@/views/pages";
 import { UserLogin, UserRegister} from "@/views/auth";
 
 const routes = [
     {
         path: "/",
-        commponent: Index,
+        component: Indexed,
         name: 'index.page',
         meta: { title: "home" }
     },
@@ -20,7 +20,7 @@ const routes = [
     {
         path: '/shops',
         name: 'shop.page',
-        commponent: Shops,
+        component: Shops,
         meta: { title: "shop" },
     },
 
@@ -28,13 +28,13 @@ const routes = [
     {
         path: '/seller-list',
         name: "seller.page",
-        commponent: SellerPages,
+        component: SellerPages,
         meta: { title: "Seller list" },
     },
     {
         path: '/seller-store',
         name: "seller.store",
-        commponent: SellerStore,
+        component: SellerStore,
         meta: { title: "Seller Store" },
     },
     // auth

@@ -20,6 +20,8 @@ const headerCart = () => {
 </script>
 <template>
   <div>
+    <div class="backdrop"></div>
+    <a class="backtop fas fa-arrow-up" href="#"></a>
     <div class="header-top">
       <div class="container">
         <div class="row">
