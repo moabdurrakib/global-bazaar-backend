@@ -1,3 +1,18 @@
+<script setup>
+import {reactive} from 'vue'
+import { storeAuth } from '@/stores/auth';
+
+const auth = storeAuth();
+
+const loginForm = reactive({
+  phone:"",
+  password:""
+})
+
+const loginSubmit =async() =>{
+  await auth.login(loginForm)
+}
+</script>
 <template>
     <div>
         <section class="user-form-part">
@@ -10,13 +25,14 @@
                   <p>Use your credentials to access</p>
                 </div>
                 <div class="user-form-group" id="axiosForm">
-                  <form class="user-form">
+                  <form class="user-form" @submit.prevent="loginSubmit">
                     <!--v-if-->
                     <div class="form-group">
                       <input
                         type="text"
                         class="form-control"
                         placeholder="phone no"
+                        v-model="loginForm.phone"
                       /><!--v-if-->
                     </div>
                     <div class="form-group">
@@ -24,6 +40,7 @@
                         type="password"
                         class="form-control"
                         placeholder="password"
+                        v-model="loginForm.password"
                       /><span class="view-password"
                         ><i class="fas text-success fa-eye"></i></span
                       ><!--v-if-->
