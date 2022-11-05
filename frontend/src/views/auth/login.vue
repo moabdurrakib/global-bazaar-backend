@@ -1,5 +1,5 @@
 <script setup>
-import {reactive} from 'vue'
+import {reactive,ref} from 'vue'
 import { storeAuth } from '@/stores/auth';
 
 const auth = storeAuth();
@@ -11,6 +11,12 @@ const loginForm = reactive({
 
 const loginSubmit =async() =>{
   await auth.login(loginForm)
+}
+
+const showPassword= ref(false)
+
+const toggleShow=()=>{
+  showPassword.value = !showPassword.value
 }
 </script>
 <template>
@@ -29,7 +35,7 @@ const loginSubmit =async() =>{
                     <!--v-if-->
                     <div class="form-group">
                       <input
-                        type="text"
+                        :type="text"
                         class="form-control"
                         placeholder="phone no"
                         v-model="loginForm.phone"
@@ -37,12 +43,15 @@ const loginSubmit =async() =>{
                     </div>
                     <div class="form-group">
                       <input
-                        type="password"
+                      :type="showPassword ? 'text' : 'password'"
                         class="form-control"
                         placeholder="password"
                         v-model="loginForm.password"
-                      /><span class="view-password"
-                        ><i class="fas text-success fa-eye"></i></span
+                      /><span @click="toggleShow" class="view-password"
+                        ><i class="fas text-success" :class="{
+                          'fa-eye-slash': showPassword,
+                          'fa-eye': !showPassword,
+                        }"></i></span
                       ><!--v-if-->
                     </div>
                     <div class="form-check mb-3">
