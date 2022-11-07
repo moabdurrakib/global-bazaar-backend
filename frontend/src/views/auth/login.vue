@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, useSlots } from "vue";
+import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { Field, Form } from "vee-validate";
@@ -14,14 +14,16 @@ const schema = yup.object({
 const auth = useAuth();
 const { errors } = storeToRefs(auth);
 
-const loginForm = reactive({
-  phone: "",
-  password: "",
-});
 // vee validate
 
-const loginSubmit = async () => {
-  await auth.login(loginForm);
+const loginSubmit = async (values, { setErrors }) => {
+  const res = await auth.login(values);
+
+  if (res.data) {
+    alert("login success");
+  } else {
+    setErrors(res);
+  }
 };
 
 const showPassword = ref(false);
@@ -46,7 +48,7 @@ const toggleShow = () => {
                   class="user-form"
                   @submit="loginSubmit"
                   :validation-schema="schema"
-                 v-slot="{errors }"
+                  v-slot="{ errors, isSubmiting }"
                 >
                   <!--v-if-->
                   <div class="form-group">
@@ -55,10 +57,8 @@ const toggleShow = () => {
                       type="text"
                       class="form-control"
                       placeholder="phone no"
-                      v-model="loginForm.phone"
                       :class="{ 'is-invalid': errors.phone }"
                     /><!--v-if-->
-                    <ErrorMessage name="phone" />
                     <span class="text-danger" v-if="errors.phone">{{
                       errors.phone
                     }}</span>
@@ -70,10 +70,8 @@ const toggleShow = () => {
                       :type="showPassword ? 'text' : 'password'"
                       class="form-control"
                       placeholder="password"
-                      v-model="loginForm.password"
                       :class="{ 'is-invalid': errors.password }"
                     />
-                    <ErrorMessage name="password" />
                     <span class="text-danger" v-if="errors.password">{{
                       errors.password
                     }}</span>
@@ -98,7 +96,13 @@ const toggleShow = () => {
                     >
                   </div>
                   <div class="form-button">
-                    <button type="submit">login</button>
+                    <button type="submit" :disabled="isSubmiting">
+                      login
+                      <span
+                        v-show="isSubmiting"
+                        class="spinner-border spinner-border-sm mr-1"
+                      ></span>
+                    </button>
                     <p>
                       Forgot your password?<a
                         href="reset-password.html"
