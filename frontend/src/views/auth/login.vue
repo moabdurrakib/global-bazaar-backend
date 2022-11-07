@@ -1,7 +1,15 @@
 <script setup>
-import { reactive, ref } from "@vue/reactivity";
+import { reactive, ref, useSlots } from "vue";
 import { useAuth } from "@/stores/auth";
 import { storeToRefs } from "pinia";
+import { Field, Form } from "vee-validate";
+
+import * as yup from "yup";
+
+const schema = yup.object({
+  phone: yup.string().required(),
+  password: yup.string().required().min(8),
+});
 
 const auth = useAuth();
 const { errors } = storeToRefs(auth);
@@ -10,6 +18,7 @@ const loginForm = reactive({
   phone: "",
   password: "",
 });
+// vee validate
 
 const loginSubmit = async () => {
   await auth.login(loginForm);
@@ -33,31 +42,40 @@ const toggleShow = () => {
                 <p>Use your credentials to access</p>
               </div>
               <div class="user-form-group" id="axiosForm">
-                <form class="user-form" @submit.prevent="loginSubmit">
+                <Form
+                  class="user-form"
+                  @submit="loginSubmit"
+                  :validation-schema="schema"
+                 v-slot="{errors }"
+                >
                   <!--v-if-->
                   <div class="form-group">
-                    <input
+                    <Field
+                      name="phone"
                       type="text"
                       class="form-control"
                       placeholder="phone no"
                       v-model="loginForm.phone"
-                      :class="{'is-invalid':errors.phone}"
+                      :class="{ 'is-invalid': errors.phone }"
                     /><!--v-if-->
+                    <ErrorMessage name="phone" />
                     <span class="text-danger" v-if="errors.phone">{{
-                      errors.phone[0]
+                      errors.phone
                     }}</span>
                   </div>
 
                   <div class="form-group">
-                    <input
+                    <Field
+                      name="password"
                       :type="showPassword ? 'text' : 'password'"
                       class="form-control"
                       placeholder="password"
                       v-model="loginForm.password"
-                      :class="{'is-invalid':errors.password}"
+                      :class="{ 'is-invalid': errors.password }"
                     />
+                    <ErrorMessage name="password" />
                     <span class="text-danger" v-if="errors.password">{{
-                      errors.password[0]
+                      errors.password
                     }}</span>
                     <span @click="toggleShow" class="view-password"
                       ><i
@@ -89,7 +107,7 @@ const toggleShow = () => {
                       >
                     </p>
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
             <div class="user-form-remind">
