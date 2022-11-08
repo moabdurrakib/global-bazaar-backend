@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { Field, Form } from "vee-validate";
+import { useRouter} from "vue-router";
 
 import * as yup from "yup";
 
@@ -14,13 +15,18 @@ const schema = yup.object({
 const auth = useAuth();
 const { errors } = storeToRefs(auth);
 
+// router
+
+const router =useRouter()
+
 // vee validate
 
 const loginSubmit = async (values, { setErrors }) => {
   const res = await auth.login(values);
 
   if (res.data) {
-    alert("login success");
+    // alert("login success");
+    router.push({name:index.page})
   } else {
     setErrors(res);
   }
@@ -31,6 +37,7 @@ const showPassword = ref(false);
 const toggleShow = () => {
   showPassword.value = !showPassword.value;
 };
+
 </script>
 <template>
   <div>

@@ -1,7 +1,10 @@
 import { defineStore } from "pinia"
 import axios from 'axios'
 export const useAuth = defineStore('auth', {
-    state: ()=>({errors:{} }),
+    state: ()=>({
+    errors:{} ,
+    users:{},
+}),
     actions: {
         async login(formData) {
             try {
@@ -10,8 +13,8 @@ export const useAuth = defineStore('auth', {
                      formData)
 
                 if (res.status === 200) {
-                    console.log(res.data);
-
+                    // console.log(res.data);
+                    this.users = res.data
                     return new Promise((resolve)=>{
                         resolve(res.data)
                     })
