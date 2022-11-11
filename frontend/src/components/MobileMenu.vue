@@ -163,7 +163,8 @@ const categoryClose = () => {
 
     <aside class="nav-sidebar">
       <div class="nav-header">
-        <a href="#"><img src="@/assets/images/logo.png" alt="logo" /></a
+        <router-link :to="{ name: 'index.page' }"
+          ><img src="@/assets/images/logo.png" alt="logo" /></router-link
         ><button class="nav-close" @click="menuClose">
           <i class="icofont-close"></i>
         </button>
@@ -171,7 +172,7 @@ const categoryClose = () => {
       <div class="nav-content">
         <ul class="nav-list">
           <li>
-            <a href="#" class="nav-link"><i class="icofont-home"></i>Home</a>
+            <router-link :to="{name:'index.page'}" class="nav-link"><i class="icofont-home"></i>Home</router-link>
           </li>
 
           <li>

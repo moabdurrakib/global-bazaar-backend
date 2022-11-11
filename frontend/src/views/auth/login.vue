@@ -3,7 +3,8 @@ import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { Field, Form } from "vee-validate";
-import { useRouter} from "vue-router";
+import { ElNotification } from "element-plus";
+import { useRouter } from "vue-router";
 
 import * as yup from "yup";
 
@@ -17,7 +18,7 @@ const { errors } = storeToRefs(auth);
 
 // router
 
-const router =useRouter()
+const router = useRouter();
 
 // vee validate
 
@@ -26,7 +27,12 @@ const loginSubmit = async (values, { setErrors }) => {
 
   if (res.data) {
     // alert("login success");
-    router.push({name:index.page})
+    router.push({ name: 'index.page' });
+    ElNotification({
+      title: "Login Success",
+      message: "Welcome to the home Page",
+      type: 'success',
+    });
   } else {
     setErrors(res);
   }
@@ -37,7 +43,6 @@ const showPassword = ref(false);
 const toggleShow = () => {
   showPassword.value = !showPassword.value;
 };
-
 </script>
 <template>
   <div>
