@@ -2,9 +2,11 @@ import { defineStore } from "pinia"
 import axios from 'axios'
 export const useAuth = defineStore('auth', {
     state: ()=>({
-    errors:{} ,
     users:{},
 }),
+persist:{
+    paths: ['users']
+},
     actions: {
         async login(formData) {
             try {
