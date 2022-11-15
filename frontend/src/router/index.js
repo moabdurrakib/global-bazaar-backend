@@ -1,4 +1,5 @@
 import { createWebHistory , createRouter } from "vue-router";
+import { useAuth } from "@/stores";
 import { NotFound, Indexed,Shops,SingleProduct,Checkout } from "@/views/pages";
 import {SellerPages,SellerStore, SellerApply} from "@/views/pages/seller"
 import { UserLogin, UserRegister} from "@/views/auth";  
@@ -38,19 +39,19 @@ const routes = [
         path: '/my-profile',
         name: 'user.profile',
         component: MyProfile,
-        meta: { title: "My Profile" },
+        meta: { title: "My Profile" , requiresAuth: true},
     },
     {
         path: '/my-wishlist',
         name: 'user.wishlist',
         component: MyWishlist,
-        meta: { title: "My Wishlist" },
+        meta: { title: "My Wishlist" , requiresAuth: true},
     },
     {
         path: '/orders',
         name: 'user.orders',
         component: MyOrderList,
-        meta: { title: "My Order List" },
+        meta: { title: "My Order List" , requiresAuth: true },
     },
     {
         path: '/checkout',
@@ -105,7 +106,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
-    next();
+
+    const loggedIn = useAuth()
+
+    if (to.matched.some((record)=>record.meta.requiresAuth)){
+        if(!loggedIn.user.meta){
+            next({name:"user.login"})
+        }
+        else{
+            next()
+        }
+    } else{
+
+        next();
+    }
 })
 
 export default router
