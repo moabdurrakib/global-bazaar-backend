@@ -1,9 +1,9 @@
-import { createWebHistory , createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 import { useAuth } from "@/stores";
-import { NotFound, Indexed,Shops,SingleProduct,Checkout } from "@/views/pages";
-import {SellerPages,SellerStore, SellerApply} from "@/views/pages/seller"
-import { UserLogin, UserRegister} from "@/views/auth";  
-import { MyOrderList, MyProfile, MyWishlist} from "@/views/user";  
+import { NotFound, Indexed, Shops, SingleProduct, Checkout } from "@/views/pages";
+import { SellerPages, SellerStore, SellerApply } from "@/views/pages/seller"
+import { UserLogin, UserRegister } from "@/views/auth";
+import { MyOrderList, MyProfile, MyWishlist } from "@/views/user";
 
 
 const routes = [
@@ -39,19 +39,19 @@ const routes = [
         path: '/my-profile',
         name: 'user.profile',
         component: MyProfile,
-        meta: { title: "My Profile" , requiresAuth: true},
+        meta: { title: "My Profile", requiresAuth: true },
     },
     {
         path: '/my-wishlist',
         name: 'user.wishlist',
         component: MyWishlist,
-        meta: { title: "My Wishlist" , requiresAuth: true},
+        meta: { title: "My Wishlist", requiresAuth: true },
     },
     {
         path: '/orders',
         name: 'user.orders',
         component: MyOrderList,
-        meta: { title: "My Order List" , requiresAuth: true },
+        meta: { title: "My Order List", requiresAuth: true },
     },
     {
         path: '/checkout',
@@ -109,17 +109,23 @@ router.beforeEach((to, from, next) => {
 
     const loggedIn = useAuth()
 
-    if (to.matched.some((record)=>record.meta.requiresAuth)){
-        if(!loggedIn.user.meta){
-            next({name:"user.login"})
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (!loggedIn.user.meta) {
+            next({ name: "user.login" })
         }
-        else{
+        else {
             next()
         }
-    } else{
-
-        next();
+    } else if (to.matched.some((record) => record.meta.guest)) {
+        if (loggedIn.user.meta) {
+            next({ name: "user.profile" })
+        } else {
+            next()
+        }
+    } else {
+        next()
     }
+
 })
 
 export default router
