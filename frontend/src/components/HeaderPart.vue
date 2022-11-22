@@ -1,4 +1,27 @@
 <script setup>
+import { useAuth } from "@/stores";
+import { storeToRefs } from "pinia";
+
+import { ElNotification } from "element-plus";
+import { useRouter } from "vue-router";
+
+const auth = useAuth();
+const { users, loading } = storeToRefs(auth);
+
+const router=useRouter()
+// logout
+const userLogout = async () => {
+  const res = await auth.logout();
+  if (res.status) {
+    router.push({ name: "index.page" });
+    ElNotification({
+      title: "success",
+      message: "Logout Success",
+      type: "success",
+      position: "top-left",
+    });
+  }
+};
 // search Icon
 const search = () => {
   $(".header-form").toggleClass("active"),
@@ -34,7 +57,9 @@ const headerCart = () => {
           <div class="col-md-7 col-lg-4">
             <ul class="header-top-list">
               <li>
-              <router-link :to="{name:'seller.apply'}">Seller Apply</router-link>
+                <router-link :to="{ name: 'seller.apply' }"
+                  >Seller Apply</router-link
+                >
               </li>
               <li><a href="faq.html">need help</a></li>
               <li><a href="contact.html">contact us</a></li>
@@ -50,12 +75,14 @@ const headerCart = () => {
           <div class="header-media-group">
             <button class="header-user" @click="menuSideBar">
               <img src="@/assets/images/menu.png" alt="user" /></button
-            ><router-link class="header-logo" :to="{name:'index.page'}"><img src="@/assets/images/logo.png" alt="logo"
-          /></router-link><button class="header-src" @click="search">
+            ><router-link class="header-logo" :to="{ name: 'index.page' }"
+              ><img src="@/assets/images/logo.png" alt="logo" /></router-link
+            ><button class="header-src" @click="search">
               <i class="fas fa-search"></i>
             </button>
           </div>
-          <router-link class="header-logo" :to="{name:'index.page'}"><img src="@/assets/images/logo.png" alt="logo"
+          <router-link class="header-logo" :to="{ name: 'index.page' }"
+            ><img src="@/assets/images/logo.png" alt="logo"
           /></router-link>
           <form class="header-form">
             <input type="text" placeholder="Search anything..." /><button>
@@ -70,7 +97,7 @@ const headerCart = () => {
                 data-bs-toggle="dropdown"
                 ><i class="fas fa-user"></i
               ></a>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu dropdown-menu-end" v-if="!users.data">
                 <li>
                   <router-link
                     :to="{ name: 'user.login' }"
@@ -107,6 +134,43 @@ const headerCart = () => {
                   >
                 </li>
               </ul>
+              <ul class="dropdown-menu dropdown-menu-end" v-else>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.profile' }"
+                    class="dropdown-item"
+                    >My profile</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.orders' }"
+                    class="dropdown-item"
+                    >My Orders</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{ name: 'user.wishlist' }"
+                    class="dropdown-item"
+                    >My Wishlist</router-link
+                  >
+                </li>
+                <li>
+                  <button
+                    :disabled="loading"
+                    class="dropdown-item"
+                    @click="userLogout"
+                  >
+                    Logout
+                    <span
+                      v-show="loading"
+                      class="spinner-boarder spinner-border-sm mr-1"
+                    >
+                    </span>
+                  </button>
+                </li>
+              </ul>
             </li>
 
             <a href="wishlist.html" class="header-widget" title="Wishlist"
@@ -126,6 +190,13 @@ const headerCart = () => {
   </div>
 </template>
 <style>
+
+@media only screen and (min-width:1700px) {
+  section.banner-part {
+    margin-left: 13%;
+}
+}
+
 .hover-nav .nav-item .dropdown-menu {
   display: none;
   margin-top: 0;

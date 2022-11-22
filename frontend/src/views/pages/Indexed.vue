@@ -1263,3 +1263,7 @@ const newSlide = ref([Navigation, Autoplay])
     </section>
   </div>
 </template>
+
+<style>
+
+</style>
