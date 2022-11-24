@@ -24,8 +24,6 @@ const router = useRouter();
 
 const loginSubmit = async (values, { setErrors }) => {
   const res = await auth.login(values);
-  console.log(res)
-  console.log("login")
 
   if (res.data) {
     // alert("login success");

@@ -9,15 +9,12 @@ const axiosInstance = axios.create({
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
-    const authInfo = useAuth()
-
-    const auth = authInfo.users.meta ? `Bearer ${authInfo.users.meta.token}` : "";
-    console.log(auth)
-    config.headers.common["Authorization"] = auth;
+    const authInfo = useAuth();
+    const auth = authInfo.user.meta ? `Bearer ${authInfo.user.meta.token}`:"";
+    config.headers.common['Authorization'] = auth;
     return config;
   },
-   function (error) {
+  function (error) {
     // Do something with request error
     console.log(error)
     return Promise.reject(error);
