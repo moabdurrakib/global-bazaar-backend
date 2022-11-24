@@ -6,9 +6,9 @@ import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
 
 const auth = useAuth();
-const { users, loading } = storeToRefs(auth);
+const { user, loading } = storeToRefs(auth);
 
-const router=useRouter()
+const router = useRouter();
 // logout
 const userLogout = async () => {
   const res = await auth.logout();
@@ -97,7 +97,7 @@ const headerCart = () => {
                 data-bs-toggle="dropdown"
                 ><i class="fas fa-user"></i
               ></a>
-              <ul class="dropdown-menu dropdown-menu-end" v-if="!users.data">
+              <ul class="dropdown-menu dropdown-menu-end" v-if="!user.data">
                 <li>
                   <router-link
                     :to="{ name: 'user.login' }"
@@ -190,11 +190,10 @@ const headerCart = () => {
   </div>
 </template>
 <style>
-
-@media only screen and (min-width:1700px) {
+@media only screen and (min-width: 1700px) {
   section.banner-part {
     margin-left: 13%;
-}
+  }
 }
 
 .hover-nav .nav-item .dropdown-menu {

@@ -1,12 +1,12 @@
 import { defineStore } from "pinia"
-import axiosInstance from "@/services/AxiosService"
+import axiosInstance from "@/services/axiosService"
 export const useAuth = defineStore('auth', {
     state: () => ({
-        users: {},
-        loading:false,
+        user: {},
+        loading: false,
     }),
     persist: {
-        paths: ['users']
+        paths: ['user']
     },
     actions: {
         async login(formData) {
@@ -15,7 +15,7 @@ export const useAuth = defineStore('auth', {
 
                 if (res.status === 200) {
                     // console.log(res.data);
-                    this.users = res.data
+                    this.user = res.data
                     return new Promise((resolve) => {
                         resolve(res.data)
                     })
@@ -34,21 +34,22 @@ export const useAuth = defineStore('auth', {
             }
 
         },
-        
+
         async logout() {
-            this.loading= true;
-            try{
+            this.loading = true;
+            try {
+                console.log('loghout');
                 const res = await axiosInstance.post("/user/logout");
-                if(res.status === 200){
-                    this.users= {}
-                    return new Promise((resolve)=>{
+                if (res.status === 200) {
+                    this.user = {}
+                    return new Promise((resolve) => {
                         resolve(res.data)
                     })
                 }
-            }catch(error){
-
-            }finally{
-                this.loading =false;
+            } catch (error) {
+                console.log(error);
+            } finally {
+                this.loading = false;
             }
         },
 
