@@ -10,6 +10,7 @@ import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 

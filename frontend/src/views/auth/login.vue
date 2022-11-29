@@ -8,6 +8,7 @@ import { useRouter } from "vue-router";
 
 import * as yup from "yup";
 
+
 const schema = yup.object({
   phone: yup.string().required(),
   password: yup.string().required().min(8),
@@ -20,7 +21,11 @@ const { errors } = storeToRefs(auth);
 
 const router = useRouter();
 
-// vee validate
+// vee
+
+const getToken = async () => {
+  await  axios.get("sanctum/csrf-cookie")
+}
 
 const loginSubmit = async (values, { setErrors }) => {
   const res = await auth.login(values);
