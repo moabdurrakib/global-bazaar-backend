@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
-import { storeToRefs } from "pinia";
+// import { storeToRefs } from "pinia";
 import { Field, Form } from "vee-validate";
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
@@ -15,7 +15,7 @@ const schema = yup.object({
 });
 
 const auth = useAuth();
-const { errors } = storeToRefs(auth);
+// const { errors } = storeToRefs(auth);
 
 // router
 

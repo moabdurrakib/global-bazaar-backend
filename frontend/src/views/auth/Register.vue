@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useAuth } from "@/stores/auth";
-import { storeToRefs } from "pinia";
+// import { storeToRefs } from "pinia";
 import { Field, Form } from "vee-validate";
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
@@ -10,12 +10,16 @@ import * as yup from "yup";
 
 
 const schema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().required().email(),
   phone: yup.string().required(),
   password: yup.string().required().min(8),
+  password_confirmation: yup.string().required("Password Confirmation is a required field").min(8)
+  .oneOf([yup.ref("password"),null],"password and confirm password must be  match"),
 });
 
 const auth = useAuth();
-const { errors } = storeToRefs(auth);
+// const { errors } = storeToRefs(auth); we used it for server side error showing .but we don't need it now.
 
 // router
 
@@ -23,9 +27,6 @@ const router = useRouter();
 
 // vee
 
-const getToken = async () => {
-  await  axios.get("sanctum/csrf-cookie")
-}
 
 const loginSubmit = async (values, { setErrors }) => {
   const res = await auth.login(values);
@@ -73,7 +74,7 @@ const toggleShow = () => {
                       name="name"
                       type="text"
                       class="form-control"
-                      placeholder="phone no"
+                      placeholder="Name"
                       :class="{ 'is-invalid': errors.name }"
                     /><!--v-if-->
                     <span class="text-danger" v-if="errors.name">
@@ -81,13 +82,24 @@ const toggleShow = () => {
                   </div>
                   <div class="form-group"> 
                     <Field
-                      name="name"
+                      name="email"
                       type="text"
                       class="form-control"
-                      placeholder="phone no"
-                      :class="{ 'is-invalid': errors.name }"
+                      placeholder="email address"
+                      :class="{ 'is-invalid': errors.email }"
                     /><!--v-if-->
-                    <span class="text-danger" v-if="errors.name">
+                    <span class="text-danger" v-if="errors.email">
+                    </span>
+                  </div>
+                  <div class="form-group"> 
+                    <Field
+                      name="phone"
+                      type="text"
+                      class="form-control"
+                      placeholder="enter your phone number"
+                      :class="{ 'is-invalid': errors.phone }"
+                    /><!--v-if-->
+                    <span class="text-danger" v-if="errors.phone">
                     </span>
                   </div>
 
@@ -112,7 +124,28 @@ const toggleShow = () => {
                       ></i></span
                     ><!--v-if-->
                   </div>
-                  <div class="form-check mb-3">
+                  <div class="form-group">
+                    <Field
+                      name="password_confirmation"
+                      :type="showPassword ? 'text' : 'password'"
+                      class="form-control"
+                      placeholder="Retype Password"
+                      :class="{ 'is-invalid': errors.password_confirmation }"
+                    />
+                    <span class="text-danger" v-if="errors.password_confirmation">{{
+                      errors.password
+                    }}</span>
+                    <span @click="toggleShow" class="view-password"
+                      ><i
+                        class="fas text-success"
+                        :class="{
+                          'fa-eye-slash': showPassword,
+                          'fa-eye': !showPassword,
+                        }"
+                      ></i></span
+                    ><!--v-if-->
+                  </div>
+                  <!-- <div class="form-check mb-3">
                     <input
                       class="form-check-input"
                       type="checkbox"
@@ -121,7 +154,7 @@ const toggleShow = () => {
                     /><label class="form-check-label" for="check"
                       >Remember Me</label
                     >
-                  </div>
+                  </div> -->
                   <div class="form-button">
                     <button type="submit" :disabled="isSubmiting">
                       Register
