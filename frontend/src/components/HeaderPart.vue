@@ -10,10 +10,8 @@ const { user, loading } = storeToRefs(auth);
 
 const router = useRouter();
 // logout
-console.log(user.meta)
 const userLogout = async () => {
   const res = await auth.logout();
-  console.log(res)
   if (res.status) {
     router.push({ name: "index.page" });
     ElNotification({

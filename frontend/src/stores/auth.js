@@ -41,7 +41,6 @@ export const useAuth = defineStore('auth', {
             this.loading = true;
             try {
                 const res = await axiosInstance.post("/user/logout");
-                console.log(res)
                 if (res.status === 200) {
                     this.user = {}
                     return new Promise((resolve) => {
