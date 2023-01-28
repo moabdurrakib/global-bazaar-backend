@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Twilio\Rest\Client;
 
 class  AuthController extends Controller
 {
@@ -30,13 +31,40 @@ class  AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'password' => bcrypt($request->input('password'))
-        ]);
-        return $this->makeToken($user);
+        // dd($request->all());
+        $user = User::create($request->validated());
+
+        $sid = getenv("TWILIO_ACCOUNT_SID");
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
+        $twilio = new Client($sid, $token);
+
+        $verification = $twilio->verify->v2->services($verificationSid)
+            ->verifications
+            ->create("+88" . $user->phone, "sms");
+
+        // print($verification->status);
+        return response()->json($verification->status);
+        // return $this->makeToken($user);
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $sid = getenv("TWILIO_ACCOUNT_SID");
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
+        $twilio = new Client($sid, $token);
+
+        $verification_check = $twilio->verify->v2->services($verificationSid)
+            ->verificationChecks
+            ->create(
+                [
+                    "to" => "+88".$request->phone,
+                    "code" => $request->otp_code,
+                ]
+            );
+
+            return response()->json($verification_check->status);
     }
 
     public function makeToken($user)
@@ -55,7 +83,8 @@ class  AuthController extends Controller
         return send_ms('user logout', true, 200);
     }
 
-    public function user (Request $request){
-        Return AuthResourse::make($request->user());
+    public function user(Request $request)
+    {
+        return AuthResourse::make($request->user());
     }
 }

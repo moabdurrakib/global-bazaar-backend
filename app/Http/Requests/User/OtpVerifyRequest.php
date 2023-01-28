@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class OtpVerifyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','min:4'],
-            'email'=> ['required','email','unique:users'],
-            'phone'=> ['required','unique:users,phone','min:11','max:15'],
-            'password'=> ['required','confirmed']
+            'phone'=>['required','exists:users,phone'],
+            'otp_code' => ['required'],
         ];
     }
 }
