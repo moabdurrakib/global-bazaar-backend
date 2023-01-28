@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
+use App\Http\Requests\User\OtpVerifyRequest;
 use App\Http\Resources\User\AuthResourse;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,55 +17,66 @@ class  AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $user = User::where('phone', $request->phone)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        try {
+            //code...
+            $user = User::where('phone', $request->phone)->first();
+    
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'email' => ['The provided credentials are incorrect.'],
+                ]);
+            }
+    
+            return $this->makeToken($user);
+        } catch (\Exception $e) {
+            //throw $th;
+            return send_ms($e->getMessage(),false,$e->getCode());
         }
-
-        return $this->makeToken($user);
     }
 
 
 
     public function register(RegisterRequest $request)
     {
-        // dd($request->all());
-        $user = User::create($request->validated());
+        try {
+            //code...
+            // dd($request->all());
+            $user = User::create($request->validated());
+    
+            $data = twilio_env();
+            $res = $data->verifications
+                ->create("+88" . $user->phone, "sms");
+    
+            // print($verification->status);
+            return send_ms('Otp Send Success', $res->staus,400);
+            // return $this->makeToken($user);
+        } catch (\Exception $e) {
+            //throw $th;
+            return send_ms($e->getMessage(),false,$e->getCode());
 
-        $sid = getenv("TWILIO_ACCOUNT_SID");
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
-        $twilio = new Client($sid, $token);
-
-        $verification = $twilio->verify->v2->services($verificationSid)
-            ->verifications
-            ->create("+88" . $user->phone, "sms");
-
-        // print($verification->status);
-        return response()->json($verification->status);
-        // return $this->makeToken($user);
+        }
     }
 
-    public function verifyOtp(Request $request)
+    public function verifyOtp(OtpVerifyRequest $request)
     {
-        $sid = getenv("TWILIO_ACCOUNT_SID");
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $verificationSid = getenv("TWILIO_VERIFICATION_SID");
-        $twilio = new Client($sid, $token);
 
-        $verification_check = $twilio->verify->v2->services($verificationSid)
-            ->verificationChecks
-            ->create(
-                [
-                    "to" => "+88".$request->phone,
-                    "code" => $request->otp_code,
-                ]
-            );
-
-            return response()->json($verification_check->status);
+        try {
+            //code...
+            $data =twilio_env();
+            $res =$data->verificationChecks
+                 ->create(
+                     [
+                         "to" => "+88".$request->phone,
+                         "code" => $request->otp_code,
+                     ]
+                 );
+     
+                 return send_ms('Otp Send Success', $res->staus,400);
+        } catch (\Exception $e) {
+            //throw $th;
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
     }
 
     public function makeToken($user)
@@ -79,8 +91,14 @@ class  AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
-        return send_ms('user logout', true, 200);
+        try {
+            //code...
+            $request->user()->tokens()->delete();
+            return send_ms('user logout', true, 200);
+        } catch (\Throwable $e) {
+            //throw $th;
+            return send_ms($e->getMessage(),false,$e->getCode());
+        }
     }
 
     public function user(Request $request)
