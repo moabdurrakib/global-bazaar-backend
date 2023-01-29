@@ -53,6 +53,23 @@ class  AuthController extends Controller
         }
     }
 
+    public function otpResend(Request $request){
+        try {
+            $user = User::where('phone',$request->phone)->first();
+    
+            $data = twilio_env();
+            $res = $data->verifications
+                ->create("+88" . $user->phone, "sms");
+    
+            // print($verification->status);
+            return send_ms('Otp Send Success', $res->status,400);
+            }catch (\Exception $e) {
+                //throw $th;
+                return send_ms($e->getMessage(),false,$e->getCode());
+    
+            }
+    }
+
     public function verifyOtp(OtpVerifyRequest $request)
     {
 
