@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function scopeVerifiedUser($query){
+        $query->where('isVerified',1);
+    }
 }

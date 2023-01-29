@@ -17,10 +17,8 @@ class  AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-
-        try {
-            //code...
-            $user = User::where('phone', $request->phone)->first();
+            
+            $user = User::where('phone', $request->phone)->verifiedUser()->first();
     
             if (!$user || !Hash::check($request->password, $user->password)) {
                 throw ValidationException::withMessages([
@@ -29,10 +27,7 @@ class  AuthController extends Controller
             }
     
             return $this->makeToken($user);
-        } catch (\Exception $e) {
-            //throw $th;
-            return send_ms($e->getMessage(),false,$e->getCode());
-        }
+        
     }
 
 
@@ -49,7 +44,7 @@ class  AuthController extends Controller
                 ->create("+88" . $user->phone, "sms");
     
             // print($verification->status);
-            return send_ms('Otp Send Success', $res->staus,400);
+            return send_ms('Otp Send Success', $res->status,400);
             // return $this->makeToken($user);
         } catch (\Exception $e) {
             //throw $th;
@@ -72,7 +67,7 @@ class  AuthController extends Controller
                      ]
                  );
      
-                 return send_ms('Otp Send Success', $res->staus,400);
+                 return send_ms('Otp Send Success', $res->status,400);
         } catch (\Exception $e) {
             //throw $th;
             return send_ms($e->getMessage(),false,$e->getCode());
