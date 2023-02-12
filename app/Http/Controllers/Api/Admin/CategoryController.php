@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category= Category::paginate(10);
+        $category= Category::status('active')->paginate(10);
         return CategoryResource::collection($category);
     }
 
