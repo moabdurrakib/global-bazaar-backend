@@ -16,8 +16,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $slider= Slider::paginate(10);
-        return SliderResource::collection($slider);
+        $sliders= Slider::orderBy('id','desc')->get();
+        return SliderResource::collection($sliders);
     }
 
     /**
