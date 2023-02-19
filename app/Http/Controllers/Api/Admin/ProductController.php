@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\TryCatch;
 
 class ProductController extends Controller
 {
@@ -23,9 +22,9 @@ class ProductController extends Controller
             if($request->conditions == null){
                 $products = Product::paginate($limit);
             } elseif($request->conditions ==='sale'){
-                $products =Product::where('sale',1)->paginate($limit);
+                $products =Product::sold()->paginate($limit);
             }else{
-                $products = Product::where('condition',$request->conditions)->paginate($limit);
+                $products = Product::where('conditions',$request->conditions)->paginate($limit);
             }
             return ProductResource::collection($products);
         } catch (\Exception $e) {
