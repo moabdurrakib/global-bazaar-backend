@@ -18,12 +18,12 @@ class Product extends Model
         'image' => 'json',
     ];
 
-    public function scopeConditions($query,$type) 
+    public function scopeConditions($query, $type)
     {
-            $query->where('conditions',$type);
+        $query->where('conditions', $type);
     }
     public function scopeSold($query)
     {
-        $query->where('sale',1);
+        $query->where('sale', 1);
     }
 }

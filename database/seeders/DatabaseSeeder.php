@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'phone' => '01557768838',
+            'isVerified'=>1,
             'password'=> Hash::make('password')
         ]);
 

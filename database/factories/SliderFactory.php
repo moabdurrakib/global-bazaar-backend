@@ -16,8 +16,11 @@ class SliderFactory extends Factory
      */
     public function definition()
     {
+
+    $image = "upload/sliders/" .$this->faker->numberBetween(1,4). ".jfif";
         return [
-            'image'=>$this->faker->imageUrl('1440','450'),
+            // 'image'=>$this->faker->imageUrl('1440','450'),
+            'image'=>$image,
             'status'=> $this->faker->randomElement(['active','inactive'])
 
         ];
