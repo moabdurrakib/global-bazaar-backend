@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Seller;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class SellerTableSeeder extends Seeder
 {
@@ -20,7 +19,7 @@ class SellerTableSeeder extends Seeder
             'name' => 'Test Seller',
             'email' => 'seller@example.com',
             'phone' => '01557768839',
-            'password' => Hash::make('password')
+            'password' =>'password'
         ]);
     }
 }
